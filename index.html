@@ -4,24 +4,156 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baby Name App</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        /* Background GIF with rotating letters */
+        #background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-image: url('rotating-letters.gif'); /* Replace with your GIF */
+            background-size: cover;
+            opacity: 0.1; /* Transparency effect */
+            animation: rotate 30s linear infinite;
+        }
+
+        /* Keyframes for background GIF rotation */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Name display styling */
+        #nameField {
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            font-size: 36px;
+            position: relative;
+        }
+
+        /* Previously liked name displayed with lower font and transparency */
+        #previousLikedName {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 18px;
+            opacity: 0.2;
+            margin-bottom: -10px;
+        }
+
+        /* Button styling */
+        .button {
+            width: 148px;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        /* Like and Dislike button colors */
+        .likeButton {
+            background-color: #4CAF50;
+            color: white;
+            position: relative;
+        }
+
+        .dislikeButton {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+        }
+
+        /* Watermark for Like and Dislike buttons */
+        .likeButton::before {
+            content: '✔';
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .dislikeButton::before {
+            content: '✘';
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Vector display styling */
+        .vectorDisplay {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .currentVector {
+            color: black;
+        }
+
+        .targetVector {
+            color: green;
+        }
+
+        .buttonsContainer {
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+        }
+    </style>
 </head>
 <body>
-    <div id="app-container">
-        <div id="name-card" class="name-card">
-            <h1 id="baby-name">Mike</h1>
-        </div>
-        <div class="button-container">
-            <button id="dislike" class="dislike-btn">
-                <span class="icon">✖</span>
-                Dislike
-            </button>
-            <button id="like" class="like-btn">
-                <span class="icon">✔</span>
-                Like
-            </button>
-        </div>
+
+<div id="background"></div>
+
+<div class="container">
+    <!-- Name field showing current and previous liked name -->
+    <div id="nameField">
+        <span id="currentName">Mike</span>
+        <span id="previousLikedName">John</span>
     </div>
-    <script src="babyapp.js"></script>
+
+    <!-- Buttons for liking and disliking names -->
+    <div class="buttonsContainer">
+        <button class="button likeButton" onclick="likeName()">Like</button>
+        <button class="button dislikeButton" onclick="dislikeName()">Dislike</button>
+    </div>
+
+    <!-- Display current name vector and target vector -->
+    <div class="vectorDisplay">
+        <span class="currentVector">Current Vector: [1, 3, 1, 2, 2, 2, 2, 0, 1, 2]</span><br>
+        <span class="targetVector">Target Vector: [2, 3, 2, 2, 2, 1, 2, 0, 1, 3]</span>
+    </div>
+</div>
+
+<script src="babyapp.js"></script>
+
 </body>
 </html>
