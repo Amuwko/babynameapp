@@ -1,3 +1,7 @@
+
+
+let currentIndex = 0;
+let previousLikedName = "";
 let namesDataset = [
     { name: "Mike", vector: [1, 2, 1, 3, 1, 2, 2, 1, 1, 2] },
     { name: "Sophia", vector: [2, 1, 3, 1, 2, 3, 1, 1, 2, 2] },
@@ -74,116 +78,37 @@ let namesDataset = [
     { name: "Isabelle", vector: [3, 1, 2, 3, 1, 1, 1, 1, 2, 3] },
     { name: "Caleb", vector: [1, 3, 1, 2, 2, 2, 2, 0, 1, 1] },
     { name: "Naomi", vector: [2, 1, 2, 3, 1, 1, 1, 1, 2, 3] },
-    { name: "Isaiah", vector: [2, 3, 1, 1, 2, 2, 2, 0, 2, 2] },
-        // Add remaining 97 names below for testing
+    { name: "Isaiah", vector: [2, 3, 1, 1, 2, 2, 2, 0, 2, 2] }
+    // Add more names here...
 ];
 
-let currentIndex = 0;
-let userPrefVector = [2, 2, 2, 2, 2, 2, 2, 2, 2, 2];  // Initial average preference vector
-let seenNames = new Set();
+function updateDisplay() {
+    let name = namesDataset[currentIndex].name;
+    let vector = namesDataset[currentIndex].vector;
 
-const nameField = document.getElementById('baby-name');
-const likeButton = document.getElementById('like');
-const dislikeButton = document.getElementById('dislike');
-const card = document.getElementById('name-card'); 
+    document.getElementById('currentName').innerText = name;
+    document.getElementById('currentVector').innerText = `Current: [${vector.join(", ")}]`;
 
-// Set the first name
-nameField.textContent = namesDataset[currentIndex].name;
+    // Sought-for vector (here just an example logic)
+    let soughtVector = vector.map((v, idx) => (v + 1) % 4); // Modify the logic as needed
+    document.getElementById('soughtVector').innerText = `Sought-for: [${soughtVector.join(", ")}]`;
 
-// Handle Like button
-likeButton.addEventListener('click', () => {
-    adjustPreferenceVector(namesDataset[currentIndex].vector, true);
-    animateCard('right');
-});
-
-// Handle Dislike button
-dislikeButton.addEventListener('click', () => {
-    adjustPreferenceVector(namesDataset[currentIndex].vector, false);
-    animateCard('left');
-});
-
-// Swipe logic (drag detection)
-card.addEventListener('mousedown', (e) => startSwipe(e.clientX));
-card.addEventListener('mouseup', (e) => endSwipe(e.clientX));
-card.addEventListener('touchstart', (e) => startSwipe(e.touches[0].clientX));
-card.addEventListener('touchend', (e) => endSwipe(e.changedTouches[0].clientX));
-
-function startSwipe(startX) {
-    this.startX = startX;
-}
-
-function endSwipe(endX) {
-    let deltaX = endX - this.startX;
-    if (deltaX > 100) {
-        adjustPreferenceVector(namesDataset[currentIndex].vector, true);
-        animateCard('right');
-    } else if (deltaX < -100) {
-        adjustPreferenceVector(namesDataset[currentIndex].vector, false);
-        animateCard('left');
+    // Display previous liked name
+    if (previousLikedName) {
+        document.getElementById('previousName').innerText = `Previous liked: ${previousLikedName}`;
     }
 }
 
-// Adjust user preference vector based on interaction
-function adjustPreferenceVector(nameVector, liked) {
-    for (let i = 0; i < userPrefVector.length; i++) {
-        if (liked) {
-            userPrefVector[i] = (userPrefVector[i] + nameVector[i]) / 2;
-        } else {
-            userPrefVector[i] = (userPrefVector[i] * 0.9);
-        }
-    }
+function like() {
+    previousLikedName = namesDataset[currentIndex].name;
+    currentIndex = (currentIndex + 1) % namesDataset.length;
+    updateDisplay();
 }
 
-// Find the next name based on user preferences
-function getNextName() {
-    let minDistance = Infinity;
-    let bestMatch = null;
-
-    for (let i = 0; i < namesDataset.length; i++) {
-        if (!seenNames.has(namesDataset[i].name)) {
-            let distance = euclideanDistance(userPrefVector, namesDataset[i].vector);
-            if (distance < minDistance) {
-                minDistance = distance;
-                bestMatch = namesDataset[i];
-            }
-        }
-    }
-
-    if (bestMatch) {
-        seenNames.add(bestMatch.name);
-        return bestMatch.name;
-    } else {
-        return "No more names!";
-    }
+function dislike() {
+    currentIndex = (currentIndex + 1) % namesDataset.length;
+    updateDisplay();
 }
 
-// Calculate Euclidean distance between two vectors
-function euclideanDistance(v1, v2) {
-    return Math.sqrt(v1.reduce((sum, val, i) => sum + Math.pow(val - v2[i], 2), 0));
-}
-
-// Animation logic for swipe
-function animateCard(direction) {
-    if (direction === 'right') {
-        card.classList.add('swipe-right');
-    } else {
-        card.classList.add('swipe-left');
-    }
-
-    // Wait for the animation to complete
-    setTimeout(() => {
-        card.classList.remove('swipe-right', 'swipe-left');
-        loadNextName();
-    }, 500);
-}
-
-// Load the next name
-function loadNextName() {
-    let nextName = getNextName();
-    nameField.textContent = nextName;
-    
-    if (nextName === "No more names!") {
-        likeButton.style.display = 'none';
-        dislikeButton.style.display = 'none';
-    }
-}
+// Initial display update
+updateDisplay();
