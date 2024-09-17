@@ -68,6 +68,13 @@ let namesDataset = [
     { name: "Elias", vector: [2, 3, 2, 1, 2, 2, 2, 0, 2, 3] },
     { name: "Leo", vector: [1, 3, 1, 2, 2, 2, 2, 1, 1, 1] },
     { name: "Nora", vector: [2, 1, 2, 3, 1, 1, 1, 1, 2, 3] },
+    { name: "Jaxon", vector: [2, 3, 1, 2, 2, 2, 2, 1, 2, 2] },
+    { name: "Ruby", vector: [1, 1, 1, 3, 1, 2, 1, 1, 1, 2] },
+    { name: "Michael", vector: [2, 3, 2, 1, 2, 2, 2, 0, 2, 2] },
+    { name: "Isabelle", vector: [3, 1, 2, 3, 1, 1, 1, 1, 2, 3] },
+    { name: "Caleb", vector: [1, 3, 1, 2, 2, 2, 2, 0, 1, 1] },
+    { name: "Naomi", vector: [2, 1, 2, 3, 1, 1, 1, 1, 2, 3] },
+    { name: "Isaiah", vector: [2, 3, 1, 1, 2, 2, 2, 0, 2, 2] },
         // Add remaining 97 names below for testing
 ];
 
