@@ -6,7 +6,7 @@ let dislikedNames = [];
 const nameField = document.getElementById('baby-name');
 const likeButton = document.getElementById('like');
 const dislikeButton = document.getElementById('dislike');
-const card = document.getElementById('name-card');  // Add a card element to animate
+const card = document.getElementById('name-card'); 
 
 // Set the first name
 nameField.textContent = names[currentIndex];
