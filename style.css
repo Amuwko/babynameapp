@@ -116,8 +116,8 @@ button:active {
     font-size: 24px;
     opacity: 0.3;
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 10px;
+    right: 15px;
 }
 
 .like-btn .icon {
