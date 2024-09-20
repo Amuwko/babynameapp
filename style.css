@@ -70,12 +70,10 @@ body {
     color: black;
 }
 
-.buttons-container {
+.button-container {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 10px;
-    gap: 10px; /* Space between buttons */
+    gap: 20px;
+    margin-top: 30px;
 }
 
 button {
