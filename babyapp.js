@@ -17,6 +17,8 @@ function showName(nameIndex) {
     // Update previous liked name
     if (likedNames.length > 0) {
         previousNameDiv.textContent = `Previous liked: ${likedNames[likedNames.length - 1].name}`;
+    } else {
+        previousNameDiv.textContent = 'Previous liked: None';
     }
 
     // Update current vector and target vector display
@@ -71,6 +73,9 @@ function showNextName() {
     if (nextNameIndex !== -1) {
         currentIndex = nextNameIndex;
         showName(nextNameIndex);
+        nameFallingAnimation();
+    } else {
+        alert("No more names to display!");
     }
 }
 
@@ -87,7 +92,7 @@ function setupSwipe() {
     currentNameDiv.addEventListener('touchmove', (e) => {
         const moveX = e.touches[0].clientX;
         const diffX = moveX - startX;
-        
+
         if (diffX > 50) {
             like();  // Swipe right to like
         } else if (diffX < -50) {
@@ -107,6 +112,10 @@ function nameFallingAnimation() {
 function initialize() {
     showName(currentIndex);
     setupSwipe();
+
+    // Attach click event listeners to buttons
+    document.querySelector('.like-button').addEventListener('click', like);
+    document.querySelector('.dislike-button').addEventListener('click', dislike);
 }
 
 document.addEventListener('DOMContentLoaded', initialize);
