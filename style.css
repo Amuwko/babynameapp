@@ -1,4 +1,3 @@
-/* Full-screen background with a rotating GIF */
 body {
     margin: 0;
     padding: 0;
@@ -7,11 +6,38 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: url('rotating-letters.gif') center center / cover no-repeat;
-    background-blend-mode: overlay;
+    background-color: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.animated-letter {
+    position: absolute;
+    font-size: 5rem;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.1); /* 10% transparency */
+    animation: rotate 10s linear infinite;
+    z-index: 0;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .app-container {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,19 +101,13 @@ body {
 }
 
 .like-button::before {
-    background-image: url('checkmark.png'); /* Add watermark tick image */
+    background-image: url('checkmark.png');
 }
 
 .dislike-button::before {
-    background-image: url('cross.png'); /* Add watermark X image */
+    background-image: url('cross.png');
 }
 
 .vector-container {
     margin-top: 20px;
-    font-size: 1.2em;
-    color: black;
-}
-
-.sought-vector {
-    color: green;
-}
+    font-size: 1.2em
