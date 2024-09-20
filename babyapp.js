@@ -63,7 +63,7 @@ function calculateVectorDistance(vec1, vec2) {
 //}
 
 // Handle Like button
-like-Button.addEventListener('click', () => {
+like-Btn.addEventListener('click', () => {
     likedNames.push(namesDataset[currentIndex]);
     updateTargetVector(namesDataset[currentIndex].vector);
     animateCard('right');
@@ -122,8 +122,8 @@ function initialize() {
     setupSwipe();
 
     // Attach click event listeners to buttons
-    document.querySelector('.like-button').addEventListener('click', like);
-    document.querySelector('.dislike-button').addEventListener('click', dislike);
+    document.querySelector('.like-btn').addEventListener('click', like);
+    document.querySelector('.dislike-btn').addEventListener('click', dislike);
 }
 
 document.addEventListener('DOMContentLoaded', initialize);
@@ -181,7 +181,7 @@ function loadNextName() {
         nameField.textContent = names[currentIndex];
     } else {
         nameField.textContent = 'End of names!';
-        likeButton.style.display = 'none';
-        dislikeButton.style.display = 'none';
+        like-Btn.style.display = 'none';
+        dislike-Btn.style.display = 'none';
     }
 }
