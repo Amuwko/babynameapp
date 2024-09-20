@@ -78,36 +78,58 @@ body {
     gap: 10px; /* Space between buttons */
 }
 
-.action-button {
-    width: 48%;
-    padding: 20px;
-    font-size: 1.5em;
+button {
+    padding: 15px 30px;
     border: none;
-    border-radius: 10px;
+    border-radius: 30px;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.like-btn {
+    background-color: #28a745;
+    color: white;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
     position: relative;
 }
 
-.like-btn::before, .dislike-btn::before {
-    content: "";
+.dislike-btn {
+    background-color: #dc3545;
+    color: white;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+    position: relative;
+}
+
+.like-btn .icon,
+.dislike-btn .icon {
+    font-size: 24px;
+    opacity: 0.3;
     position: absolute;
-    width: 30px;
-    height: 30px;
-    top: 10px;
-    right: 10px;
-    background-size: cover;
-    opacity: 0.1;
+    top: 5px;
+    right: 5px;
 }
 
-.like-btn::before {
-    background-image: url('checkmark.png'); /* Tick watermark */
+.like-btn .icon {
+    content: "✔";
 }
 
-.dislike-btn::before {
-    background-image: url('cross.png'); /* Cross watermark */
+.dislike-btn .icon {
+    content: "✖";
 }
+
 
 .vector-container {
     margin-top: 20px;
