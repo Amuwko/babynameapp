@@ -10,14 +10,14 @@ const currentVectorField = document.getElementById('currentVector');
 const targetVectorField = document.getElementById('targetVector');
 const card = document.getElementById('name-card');
 
-// Set the first name and vectors
+// Initialize the app
 function initialize() {
     updateName(currentIndex);
     setupButtons();
     setupSwipe();
 }
 
-// Update the displayed name, previous liked name, and vectors
+// Update the displayed name and vectors
 function updateName(index) {
     nameField.textContent = namesDataset[index].name;
     currentVectorField.textContent = `Current: ${namesDataset[index].vector}`;
@@ -28,14 +28,14 @@ function updateName(index) {
     }
 }
 
-// Handle like button and swipe right
+// Handle "Like" action
 function like() {
     likedNames.push(namesDataset[currentIndex]);
     updateTargetVector(namesDataset[currentIndex].vector);
     animateCard('right');
 }
 
-// Handle dislike button and swipe left
+// Handle "Dislike" action
 function dislike() {
     animateCard('left');
 }
@@ -46,41 +46,70 @@ function updateTargetVector(likedVector) {
     targetVectorField.textContent = `Target: ${targetVector}`;
 }
 
-// Swipe handling
+// Handle swiping logic
 function setupSwipe() {
     let startX = 0;
+    let isSwiping = false;
 
-    card.addEventListener('mousedown', (e) => startX = e.clientX);
-    card.addEventListener('mouseup', (e) => handleSwipe(e.clientX - startX));
-    card.addEventListener('touchstart', (e) => startX = e.touches[0].clientX);
-    card.addEventListener('touchend', (e) => handleSwipe(e.changedTouches[0].clientX - startX));
+    card.addEventListener('mousedown', (e) => {
+        startX = e.clientX;
+        isSwiping = true;
+    });
+
+    card.addEventListener('mouseup', (e) => {
+        if (isSwiping) {
+            const endX = e.clientX;
+            handleSwipe(endX - startX);
+            isSwiping = false;
+        }
+    });
+
+    card.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isSwiping = true;
+    });
+
+    card.addEventListener('touchend', (e) => {
+        if (isSwiping) {
+            const endX = e.changedTouches[0].clientX;
+            handleSwipe(endX - startX);
+            isSwiping = false;
+        }
+    });
 }
 
+// Determine swipe direction and trigger the appropriate action
 function handleSwipe(deltaX) {
-    if (deltaX > 100) like();
-    else if (deltaX < -100) dislike();
+    if (deltaX > 100) {
+        like();  // Swipe right
+    } else if (deltaX < -100) {
+        dislike();  // Swipe left
+    }
 }
 
-// Animate card movement
+// Animate card based on swipe direction and load the next name
 function animateCard(direction) {
     card.classList.add(direction === 'right' ? 'swipe-right' : 'swipe-left');
+
     setTimeout(() => {
         card.classList.remove('swipe-right', 'swipe-left');
         loadNextName();
     }, 500);
 }
 
-// Load the next name
+// Load the next name in the dataset
 function loadNextName() {
     currentIndex++;
     if (currentIndex < namesDataset.length) {
         updateName(currentIndex);
     } else {
         nameField.textContent = 'End of names!';
+        document.getElementById('like').style.display = 'none';
+        document.getElementById('dislike').style.display = 'none';
     }
 }
 
-// Attach button listeners
+// Attach click listeners to buttons
 function setupButtons() {
     document.getElementById('like').addEventListener('click', like);
     document.getElementById('dislike').addEventListener('click', dislike);
