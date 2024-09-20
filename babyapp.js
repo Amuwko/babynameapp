@@ -6,7 +6,7 @@ let currentIndex = 0;
 let likedNames = [];
 let targetVector = [2, 1, 3, 1, 2, 1, 1, 1, 2, 3];  // Initial target vector
 
-const nameField = document.getElementById('currentname');
+const nameField = document.getElementById('currentName');
 const like-Btn = document.getElementById('like');
 const dislike-Btn = document.getElementById('dislike');
 const card = document.getElementById('name-card'); 
@@ -29,20 +29,16 @@ dislike-Btn.addEventListener('click', () => {
 
 // Swipe event handling
 let startX = 0;
-
 card.addEventListener('mousedown', (e) => {
     startX = e.clientX;
 });
-
 card.addEventListener('mouseup', (e) => {
     let endX = e.clientX;
     handleSwipe(endX - startX);
 });
-
 card.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
 });
-
 card.addEventListener('touchend', (e) => {
     let endX = e.changedTouches[0].clientX;
     handleSwipe(endX - startX);
