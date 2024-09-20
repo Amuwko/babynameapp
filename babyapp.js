@@ -6,7 +6,7 @@ let currentIndex = 0;
 let likedNames = [];
 let targetVector = [2, 1, 3, 1, 2, 1, 1, 1, 2, 3];  // Initial target vector
 
-const nameField = document.getElementById('baby-name');
+const nameField = document.getElementById('currentname');
 const like-Btn = document.getElementById('like');
 const dislike-Btn = document.getElementById('dislike');
 const card = document.getElementById('name-card'); 
