@@ -63,7 +63,7 @@ function calculateVectorDistance(vec1, vec2) {
 //}
 
 // Handle Like button
-likeButton.addEventListener('click', () => {
+like-Button.addEventListener('click', () => {
     likedNames.push(namesDataset[currentIndex]);
     updateTargetVector(namesDataset[currentIndex].vector);
     animateCard('right');
