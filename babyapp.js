@@ -56,11 +56,19 @@ function calculateVectorDistance(vec1, vec2) {
 }
 
 // Like functionality
-function like() {
+//function like() {
+//    likedNames.push(namesDataset[currentIndex]);
+//    updateTargetVector(namesDataset[currentIndex].vector);
+//    showNextName();
+//}
+
+// Handle Like button
+likeButton.addEventListener('click', () => {
     likedNames.push(namesDataset[currentIndex]);
     updateTargetVector(namesDataset[currentIndex].vector);
+    animateCard('right');
     showNextName();
-}
+});
 
 // Dislike functionality
 function dislike() {
