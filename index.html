@@ -6,19 +6,26 @@
     <title>Baby Name Selector</title>
     <link rel="stylesheet" href="style.css">
 </head>
+ 
 <body>
     <div class="background-animation">
         <!-- Rotating letters will be dynamically added here -->
     </div>
 
     <div class="app-container">
-        <div class="name-field">
+        <div class="name-card">
             <div class="previous-name" id="previousName">Previous liked: None</div>
             <div class="current-name" id="currentName">Mike</div>
         </div>
-        <div class="buttons-container">
-            <button class="action-button dislike-button">Dislike</button>
-            <button class="action-button like-button">Like</button>
+        <div class="button-container">
+            <button id="dislike" class="dislike-btn">
+                <span class="icon">✖</span>
+                Dislike
+            </button>
+            <button id="like" class="like-btn">
+                <span class="icon">✔</span>
+                Like
+            </button>
         </div>
         <div class="vector-container">
             <div id="currentVector">Current: [1, 3, 1, 2, 2, 2, 2, 0, 1, 2]</div>
