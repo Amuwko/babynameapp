@@ -1,6 +1,6 @@
 // namesDataset.js
 export const namesDataset = [
-    { name: "New", vector: [1, 2, 1, 3, 1, 2, 2, 1, 1, 2] },
+    { name: "First", vector: [1, 2, 1, 3, 1, 2, 2, 1, 1, 2] },
     { name: "Sophia", vector: [2, 1, 3, 1, 2, 3, 1, 1, 2, 2] },
     { name: "Olivia", vector: [2, 1, 2, 3, 1, 2, 3, 1, 1, 3] },
     { name: "James", vector: [1, 3, 1, 2, 2, 2, 2, 0, 2, 2] },
