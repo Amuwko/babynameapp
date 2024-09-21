@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baby Name</title>
+    <title>Baby Name Selector</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,27 +11,19 @@
 
     <div class="app-container">
         <div id="name-card" class="name-card">
-            <div class="previous-name" id="previousName">Previous liked: None</div>
+            <div class="previous-name" id="previousName">Previously liked: None</div>
             <div class="current-name" id="currentName">Mike</div>
         </div>
         <div class="button-container">
-            <button id="dislike" class="dislike-btn">
+            <button id="dislike" class="action-button dislike-btn">
                 <span class="icon">✖</span>
-                Dislike
             </button>
-            <button id="like" class="like-btn">
+            <button id="like" class="action-button like-btn">
                 <span class="icon">✔</span>
-                Like
             </button>
-        </div>
-        <div class="vector-container">
-            <div id="currentVector">Current: [1, 3, 1, 2, 2, 2, 2, 0, 1, 2]</div>
-            <div id="targetVector" class="target-vector">Target: [2, 1, 3, 1, 2, 1, 1, 1, 2, 3]</div>
         </div>
     </div>
 
     <script src="babyapp.js"></script>
-    <script src="animations.js"></script>
-    <script src="namesDataset.js"></script>
 </body>
 </html>
