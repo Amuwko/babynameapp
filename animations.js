@@ -4,6 +4,7 @@ function getRandomLetter() {
     return alphabet[Math.floor(Math.random() * alphabet.length)];
 }
 
+
 // Function to create animated letters
 function createRotatingLetters() {
     const background = document.querySelector('.background-animation');
