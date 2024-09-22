@@ -1,13 +1,14 @@
 import { namesDataset } from './namesDataset.js';
 
+
 let currentIndex = 0;
 let previousLikedName = 'None';
 
 // References to DOM elements
 const currentNameDiv = document.getElementById('currentName');
 const previousNameDiv = document.getElementById('previousName');
-const likeBtn = document.getElementById('like');
-const dislikeBtn = document.getElementById('dislike');
+const likeBtn = document.getElementById('like-btn');
+const dislikeBtn = document.getElementById('dislike-btn');
 
 // Function to load the next name
 function loadNextName() {
