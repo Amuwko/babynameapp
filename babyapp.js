@@ -1,8 +1,7 @@
-//import { namesDataset } from './namesDataset.js';
+import { namesDataset } from './namesDataset.js';
 
 // Mock list of names for testing
-const namesDataset = ['Mike', 'Sophia', 'Liam', 'Emma', 'James', 'Isabella', 'Oliver', 'Ava', 'Elijah', 'Mia'];
-
+//const namesDataset = ['Mike', 'Sophia', 'Liam', 'Emma', 'James', 'Isabella', 'Oliver', 'Ava', 'Elijah', 'Mia'];
 
 let currentIndex = 0;
 let previousLikedName = 'None';
@@ -10,8 +9,8 @@ let previousLikedName = 'None';
 // References to DOM elements
 const currentNameDiv = document.getElementById('currentName');
 const previousNameDiv = document.getElementById('previousName');
-const likeBtn = document.getElementById('like-btn');
-const dislikeBtn = document.getElementById('dislike-btn');
+const likeBtn = document.getElementById('likeBtn');
+const dislikeBtn = document.getElementById('dislikeBtn');
 
 // Function to load the next name
 function loadNextName() {
@@ -33,3 +32,4 @@ dislikeBtn.addEventListener('click', () => {
 
 // Initial Setup
 currentNameDiv.textContent = namesDataset[currentIndex];
+
