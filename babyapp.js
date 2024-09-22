@@ -1,7 +1,7 @@
-import { namesDataset } from './namesDataset.js';
+//import { namesDataset } from './namesDataset.js';
 
 // Mock list of names for testing
-//const namesDataset = ['Mike', 'Sophia', 'Liam', 'Emma', 'James', 'Isabella', 'Oliver', 'Ava', 'Elijah', 'Mia'];
+const namesDataset = ['Mike', 'Sophia', 'Liam', 'Emma', 'James', 'Isabella', 'Oliver', 'Ava', 'Elijah', 'Mia'];
 
 let currentIndex = 0;
 let previousLikedName = 'None';
