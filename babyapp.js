@@ -3,92 +3,70 @@ import { namesDataset } from './namesDataset.js';
 let currentIndex = 0;
 let likedNames = [];
 let targetVector = [2, 1, 3, 1, 2, 1, 1, 1, 2, 3];  // Initial target vector
+let currentVector = namesDataset[currentIndex].vector;
 
 const nameField = document.getElementById('currentName');
 const previousNameField = document.getElementById('previousName');
-const likeBtn = document.getElementById('likeBtn');
-const dislikeBtn = document.getElementById('dislikeBtn');
-const card = document.getElementById('name-card');
+const currentVectorField = document.getElementById('currentVector');
+const targetVectorField = document.getElementById('targetVector');
 
-// Display the first name
-nameField.textContent = namesDataset[currentIndex].name;
+// Initial setup
+updateUI();
 
-// Handle Like button
-likeBtn.addEventListener('click', () => {
-    handleLike();
-});
-
-// Handle Dislike button
-dislikeBtn.addEventListener('click', () => {
-    handleDislike();
-});
-
-// Swipe event handling
-let startX = 0;
-card.addEventListener('mousedown', (e) => {
-    startX = e.clientX;
-});
-card.addEventListener('mouseup', (e) => {
-    let endX = e.clientX;
-    handleSwipe(endX - startX);
-});
-card.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-});
-card.addEventListener('touchend', (e) => {
-    let endX = e.changedTouches[0].clientX;
-    handleSwipe(endX - startX);
-});
-
-function handleLike() {
+// Like button event
+document.getElementById('likeBtn').addEventListener('click', () => {
     likedNames.push(namesDataset[currentIndex]);
     updateTargetVector(namesDataset[currentIndex].vector);
-    previousNameField.textContent = `Previous liked: ${namesDataset[currentIndex].name}`;
-    animateCard('right');
+    loadNextName();
+});
+
+// Dislike button event
+document.getElementById('dislikeBtn').addEventListener('click', () => {
+    loadNextName();
+});
+
+// Function to calculate the Euclidean distance between two vectors
+function calculateDistance(vector1, vector2) {
+    return Math.sqrt(vector1.reduce((sum, val, idx) => sum + Math.pow(val - vector2[idx], 2), 0));
 }
 
-function handleDislike() {
-    animateCard('left');
-}
-
-function handleSwipe(deltaX) {
-    if (deltaX > 100) {
-        // Swipe right: Like
-        handleLike();
-    } else if (deltaX < -100) {
-        // Swipe left: Dislike
-        handleDislike();
-    }
-}
-
-function animateCard(direction) {
-    if (direction === 'right') {
-        card.classList.add('swipe-right');
-    } else {
-        card.classList.add('swipe-left');
-    }
-
-    // Wait for the animation to complete
-    setTimeout(() => {
-        card.classList.remove('swipe-right', 'swipe-left');
-        loadNextName();
-    }, 500);
-}
-
-function loadNextName() {
-    currentIndex++;
-    if (currentIndex < namesDataset.length) {
-        nameField.textContent = namesDataset[currentIndex].name;
-    } else {
-        nameField.textContent = 'End of names!';
-        likeBtn.style.display = 'none';
-        dislikeBtn.style.display = 'none';
-    }
-}
-
+// Function to update the target vector based on liked name's vector
 function updateTargetVector(likedVector) {
-    for (let i = 0; i < targetVector.length; i++) {
-        targetVector[i] = Math.min(3, Math.round((likedVector[i] + targetVector[i]) / 2));
+    targetVector = targetVector.map((val, idx) => Math.round((val + likedVector[idx]) / 2));
+    updateUI();
+}
+
+// Function to load the next name based on proximity to the target vector
+function loadNextName() {
+    // Find the closest name to the current target vector
+    let closestNameIndex = currentIndex;
+    let minDistance = Infinity;
+    
+    namesDataset.forEach((nameObj, idx) => {
+        if (!likedNames.includes(nameObj) && idx !== currentIndex) {
+            let distance = calculateDistance(targetVector, nameObj.vector);
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestNameIndex = idx;
+            }
+        }
+    });
+    
+    // Update the current index and show the new name
+    currentIndex = closestNameIndex;
+    currentVector = namesDataset[currentIndex].vector;
+    updateUI();
+}
+
+// Function to update the UI elements
+function updateUI() {
+    nameField.textContent = namesDataset[currentIndex].name;
+    currentVectorField.textContent = `Current: ${currentVector}`;
+    targetVectorField.textContent = `Target: ${targetVector}`;
+    
+    if (likedNames.length > 0) {
+        previousNameField.textContent = `Previous liked: ${likedNames[likedNames.length - 1].name}`;
+    } else {
+        previousNameField.textContent = 'Previous liked: None';
     }
-    document.getElementById('targetVector').textContent = `Target: ${JSON.stringify(targetVector)}`;
 }
