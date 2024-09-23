@@ -12,17 +12,20 @@
     </div>
 
     <div class="app-container">
+        
         <!-- Gender Selection Form -->
         <div class="gender-container">
-            <form id="genderForm">
-                <label>
-                    <input type="radio" name="gender" value="male" checked> Male
-                </label>
-                <label>
-                    <input type="radio" name="gender" value="female"> Female
-                </label>
-            </form>
+          <input type="radio" name="gender" id="male" value="male" checked>
+          <label for="male" class="gender-label">Male</label>
+  
+          <input type="radio" name="gender" id="female" value="female">
+          <label for="female" class="gender-label">Female</label>
+  
+        <div class="slider">
+            <div class="slider-thumb"></div>
         </div>
+        </div>
+
 
         <div id="name-card" class="name-card">
             <div class="previous-name" id="previousName">Previous liked: None</div>
