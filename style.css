@@ -136,3 +136,26 @@ button:active {
 .swipe-left {
     animation: swipe-left 0.5s ease-out forwards;
 }
+
+.gender-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.gender-container form {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.5em;
+}
+
+.gender-container label {
+    cursor: pointer;
+}
+
