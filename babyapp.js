@@ -15,15 +15,12 @@ nameField.textContent = namesDataset[currentIndex].name;
 
 // Handle Like button
 likeBtn.addEventListener('click', () => {
-    updateTargetVector(namesDataset[currentIndex].vector);
-    likedNames.push(namesDataset[currentIndex]);
-    previousNameField.textContent = `Previous liked: ${namesDataset[currentIndex].name}`;
-    animateCard('right');
+    handleLike();
 });
 
 // Handle Dislike button
 dislikeBtn.addEventListener('click', () => {
-    animateCard('left');
+    handleDislike();
 });
 
 // Swipe event handling
@@ -43,16 +40,24 @@ card.addEventListener('touchend', (e) => {
     handleSwipe(endX - startX);
 });
 
+function handleLike() {
+    likedNames.push(namesDataset[currentIndex]);
+    updateTargetVector(namesDataset[currentIndex].vector);
+    previousNameField.textContent = `Previous liked: ${namesDataset[currentIndex].name}`;
+    animateCard('right');
+}
+
+function handleDislike() {
+    animateCard('left');
+}
+
 function handleSwipe(deltaX) {
     if (deltaX > 100) {
         // Swipe right: Like
-        updateTargetVector(namesDataset[currentIndex].vector);
-        likedNames.push(namesDataset[currentIndex]);
-        previousNameField.textContent = `Previous liked: ${namesDataset[currentIndex].name}`;
-        animateCard('right');
+        handleLike();
     } else if (deltaX < -100) {
         // Swipe left: Dislike
-        animateCard('left');
+        handleDislike();
     }
 }
 
