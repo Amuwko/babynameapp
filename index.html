@@ -7,21 +7,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-animation"></div>
+    <div class="background-animation">
+        <!-- Rotating letters will be dynamically added here -->
+    </div>
 
     <div class="app-container">
+        <!-- Gender Selection Form -->
+        <div class="gender-container">
+            <form id="genderForm">
+                <label>
+                    <input type="radio" name="gender" value="male" checked> Male
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="female"> Female
+                </label>
+            </form>
+        </div>
+
         <div id="name-card" class="name-card">
             <div class="previous-name" id="previousName">Previous liked: None</div>
-            <div class="current-name" id="currentName">First Name</div>
+            <div class="current-name" id="currentName">Michael</div>
         </div>
         <div class="button-container">
             <button id="dislikeBtn" class="dislike-btn">
-                <span class="icon">✖</span>
-                Dislike
+                <span class="icon">✖</span> Dislike
             </button>
             <button id="likeBtn" class="like-btn">
-                <span class="icon">✔</span>
-                Like
+                <span class="icon">✔</span> Like
             </button>
         </div>
         <div class="vector-container">
@@ -30,8 +42,8 @@
         </div>
     </div>
 
-    <script src="babyapp.js" type="module"></script>
+    <script src="babyapp.js"></script>
     <script src="animations.js"></script>
-    <script src="namesDataset.js" type="module"></script>
+    <script src="namesDataset.js"></script>
 </body>
 </html>
