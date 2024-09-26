@@ -32,31 +32,32 @@ body {
     max-width: 600px;
 }
 
-.gender-selection {
+.gender-button-container {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 20px;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .gender-btn {
-    padding: 15px 30px;
+    flex: 1;
+    padding: 15px;
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
+    background-color: #ddd;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gender-btn.active {
     background-color: #007bff;
     color: white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 60px; /* Match the height of the like/dislike buttons */
 }
 
 .gender-btn:hover {
     transform: scale(1.05);
-}
-
-.gender-btn:active {
-    transform: scale(0.98);
 }
 
 .name-card {
@@ -85,17 +86,19 @@ body {
 
 .button-container {
     display: flex;
+    justify-content: space-between;
     gap: 20px;
+    width: 100%;
 }
 
 button {
-    padding: 15px 30px;
+    flex: 1;
+    padding: 20px;
     border: none;
-    border-radius: 30px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 60px; /* Set height */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .like-btn {
@@ -106,6 +109,10 @@ button {
 .dislike-btn {
     background-color: #dc3545;
     color: white;
+}
+
+button:hover {
+    transform: scale(1.05);
 }
 
 .vector-container {
