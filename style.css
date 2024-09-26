@@ -1,22 +1,16 @@
-/* General Reset */
-* {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
+    font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: 'Arial', sans-serif;
     background-color: #f0f0f0;
     position: relative;
     overflow: hidden;
 }
 
-/* Rotating Background Animation */
 .background-animation {
     position: absolute;
     top: 0;
@@ -27,21 +21,6 @@ body {
     z-index: 0;
 }
 
-.animated-letter {
-    position: absolute;
-    font-size: 5rem;
-    font-weight: bold;
-    color: rgba(0, 0, 0, 0.1);
-    animation: rotate 10s linear infinite;
-    z-index: 0;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* App Container */
 .app-container {
     position: relative;
     z-index: 1;
@@ -53,7 +32,33 @@ body {
     max-width: 600px;
 }
 
-/* Name Card */
+.gender-selection {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.gender-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 60px; /* Match the height of the like/dislike buttons */
+}
+
+.gender-btn:hover {
+    transform: scale(1.05);
+}
+
+.gender-btn:active {
+    transform: scale(0.98);
+}
+
 .name-card {
     display: flex;
     flex-direction: column;
@@ -63,7 +68,7 @@ body {
     margin-bottom: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
-    border-radius: 10px 10px 0 0;
+    border-radius: 10px;
 }
 
 .previous-name {
@@ -78,117 +83,37 @@ body {
     color: black;
 }
 
-/* Button Container */
 .button-container {
     display: flex;
-    width: 100%;
-    gap: 0;
+    gap: 20px;
 }
 
 button {
-    flex: 1;
-    padding: 30px 0;
-    font-size: 2rem;
+    padding: 15px 30px;
     border: none;
+    border-radius: 30px;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-button:hover {
-    transform: scale(1.05);
-}
-
-button:active {
-    transform: scale(0.98);
+    font-size: 18px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 60px; /* Set height */
 }
 
 .like-btn {
     background-color: #28a745;
     color: white;
-    border-radius: 0 0 10px 0;
 }
 
 .dislike-btn {
     background-color: #dc3545;
     color: white;
-    border-radius: 0 0 0 10px;
 }
 
-.icon {
-    font-size: 2rem;
-    opacity: 0.8;
+.vector-container {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: black;
 }
 
-@keyframes swipe-right {
-    from { transform: translateX(0); }
-    to { transform: translateX(1000px); opacity: 0; }
+.target-vector {
+    color: green;
 }
-
-@keyframes swipe-left {
-    from { transform: translateX(0); }
-    to { transform: translateX(-1000px); opacity: 0; }
-}
-
-.swipe-right {
-    animation: swipe-right 0.5s ease-out forwards;
-}
-
-.swipe-left {
-    animation: swipe-left 0.5s ease-out forwards;
-}
-
-/* Gender container same height as buttons */
-.gender-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 50px; /* Set height to match buttons */
-  width: 100%;
-  position: relative;
-}
-
-/* Gender label styling */
-.gender-label {
-  font-size: 1.2rem;
-  color: #fff;
-  cursor: pointer;
-  padding: 10px 20px;
-}
-
-/* Hide default radio buttons */
-input[type="radio"] {
-  display: none;
-}
-
-/* Stylish slider */
-.slider {
-  position: relative;
-  height: 50px;
-  width: 100%;
-  background-color: #444;
-  border-radius: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-}
-
-.slider-thumb {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  height: 40px;
-  width: 70px;
-  background-color: #61dafb;
-  border-radius: 20px;
-  transition: left 0.4s ease;
-}
-
-input#female:checked ~ .slider .slider-thumb {
-  left: 75px;
-}
-
-input#male:checked ~ .slider .slider-thumb {
-  left: 5px;
-}
-
