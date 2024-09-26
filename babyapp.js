@@ -2,75 +2,57 @@ import { namesDataset } from './namesDataset.js';
 
 let currentIndex = 0;
 let likedNames = [];
-let targetVector = [2, 1, 3, 1, 2, 1, 1, 1, 2, 3];  // Initial target vector
-let selectedGender = { male: true, female: true };  // Both genders selected by default
+let currentGenderFilter = { male: false, female: false };
 
 const nameField = document.getElementById('currentName');
 const previousNameField = document.getElementById('previousName');
-const currentVectorField = document.getElementById('currentVector');
-const targetVectorField = document.getElementById('targetVector');
+const maleBtn = document.getElementById('maleBtn');
+const femaleBtn = document.getElementById('femaleBtn');
+const likeBtn = document.getElementById('likeBtn');
+const dislikeBtn = document.getElementById('dislikeBtn');
 
-// Handle Like button click
-document.getElementById('like').addEventListener('click', () => {
-    likedNames.push(namesDataset[currentIndex]);
-    previousNameField.textContent = `Previous liked: ${namesDataset[currentIndex].name}`;
-    updateTargetVector(namesDataset[currentIndex].vector);
-    loadNextName();
-});
+// Event listeners for gender buttons
+maleBtn.addEventListener('click', () => toggleGender('male'));
+femaleBtn.addEventListener('click', () => toggleGender('female'));
 
-// Handle Dislike button click
-document.getElementById('dislike').addEventListener('click', () => {
-    loadNextName();
-});
-
-// Gender buttons logic
-document.getElementById('maleBtn').addEventListener('click', () => {
-    selectedGender.male = !selectedGender.male;
-    filterNamesByGender();
-});
-
-document.getElementById('femaleBtn').addEventListener('click', () => {
-    selectedGender.female = !selectedGender.female;
-    filterNamesByGender();
-});
-
-// Function to load the next name
-function loadNextName() {
-    currentIndex++;
-    if (currentIndex >= namesDataset.length) {
-        currentIndex = 0;
+function toggleGender(gender) {
+    if (gender === 'male') {
+        currentGenderFilter.male = !currentGenderFilter.male;
+        maleBtn.classList.toggle('active');
+    } else if (gender === 'female') {
+        currentGenderFilter.female = !currentGenderFilter.female;
+        femaleBtn.classList.toggle('active');
     }
-
-    nameField.textContent = namesDataset[currentIndex].name;
-    currentVectorField.textContent = `Current: [${namesDataset[currentIndex].vector}]`;
+    loadNextName();
 }
 
-// Function to filter names based on selected gender
-function filterNamesByGender() {
-    const filteredNames = namesDataset.filter((name) => {
-        if (selectedGender.male && selectedGender.female) {
-            return true;
-        }
-        if (selectedGender.male && name.vector[5] === 2) {  // Male
-            return true;
-        }
-        if (selectedGender.female && name.vector[5] === 1) {  // Female
-            return true;
-        }
+function loadNextName() {
+    let filteredNames = namesDataset.filter(name => {
+        if (currentGenderFilter.male && name.vector[5] === 2) return true;
+        if (currentGenderFilter.female && name.vector[5] === 1) return true;
+        if (!currentGenderFilter.male && !currentGenderFilter.female) return true;
         return false;
     });
 
-    currentIndex = 0;  // Reset index after filtering
-    loadNextName();  // Load the first name from the filtered dataset
-}
-
-// Function to update the target vector based on the liked name's vector
-function updateTargetVector(likedVector) {
-    for (let i = 0; i < targetVector.length; i++) {
-        targetVector[i] = Math.round((targetVector[i] + likedVector[i]) / 2);
+    if (filteredNames.length === 0) {
+        nameField.textContent = 'No names available';
+    } else {
+        currentIndex = Math.floor(Math.random() * filteredNames.length);
+        nameField.textContent = filteredNames[currentIndex].name;
     }
-    targetVectorField.textContent = `Target: [${targetVector}]`;
 }
 
-// Initial load
+// Initialize the app
 loadNextName();
+
+likeBtn.addEventListener('click', () => {
+    // Like logic here
+    likedNames.push(namesDataset[currentIndex]);
+    previousNameField.textContent = `Previous liked: ${namesDataset[currentIndex].name}`;
+    loadNextName();
+});
+
+dislikeBtn.addEventListener('click', () => {
+    // Dislike logic here
+    loadNextName();
+});
