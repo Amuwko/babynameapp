@@ -2,56 +2,75 @@ import { namesDataset } from './namesDataset.js';
 
 let currentIndex = 0;
 let likedNames = [];
-let targetVector = [2, 1, 3, 1, 2, 1, 1, 1, 2, 3];
-let selectedGender = 'male';
+let targetVector = [2, 1, 3, 1, 2, 1, 1, 1, 2, 3];  // Initial target vector
+let selectedGender = { male: true, female: true };  // Both genders selected by default
 
-// Get DOM elements
 const nameField = document.getElementById('currentName');
-const likeBtn = document.getElementById('likeBtn');
-const dislikeBtn = document.getElementById('dislikeBtn');
 const previousNameField = document.getElementById('previousName');
-const genderForm = document.getElementById('genderForm');
+const currentVectorField = document.getElementById('currentVector');
+const targetVectorField = document.getElementById('targetVector');
 
-// Filter names based on gender selection
-function filterNamesByGender(gender) {
-    return namesDataset.filter(name => name.gender === gender);
-}
-
-let filteredNames = filterNamesByGender(selectedGender);
-
-// Gender change event
-genderForm.addEventListener('change', (event) => {
-    selectedGender = event.target.value;
-    currentIndex = 0;
-    likedNames = [];
-    filteredNames = filterNamesByGender(selectedGender);
-    showName();
+// Handle Like button click
+document.getElementById('like').addEventListener('click', () => {
+    likedNames.push(namesDataset[currentIndex]);
+    previousNameField.textContent = `Previous liked: ${namesDataset[currentIndex].name}`;
+    updateTargetVector(namesDataset[currentIndex].vector);
+    loadNextName();
 });
 
-// Show current name
-function showName() {
-    if (currentIndex < filteredNames.length) {
-        nameField.textContent = filteredNames[currentIndex].name;
-    } else {
-        nameField.textContent = 'End of names!';
-        likeBtn.style.display = 'none';
-        dislikeBtn.style.display = 'none';
+// Handle Dislike button click
+document.getElementById('dislike').addEventListener('click', () => {
+    loadNextName();
+});
+
+// Gender buttons logic
+document.getElementById('maleBtn').addEventListener('click', () => {
+    selectedGender.male = !selectedGender.male;
+    filterNamesByGender();
+});
+
+document.getElementById('femaleBtn').addEventListener('click', () => {
+    selectedGender.female = !selectedGender.female;
+    filterNamesByGender();
+});
+
+// Function to load the next name
+function loadNextName() {
+    currentIndex++;
+    if (currentIndex >= namesDataset.length) {
+        currentIndex = 0;
     }
+
+    nameField.textContent = namesDataset[currentIndex].name;
+    currentVectorField.textContent = `Current: [${namesDataset[currentIndex].vector}]`;
 }
 
-// Handle Like button
-likeBtn.addEventListener('click', () => {
-    likedNames.push(filteredNames[currentIndex]);
-    previousNameField.textContent = `Previous liked: ${filteredNames[currentIndex].name}`;
-    currentIndex++;
-    showName();
-});
+// Function to filter names based on selected gender
+function filterNamesByGender() {
+    const filteredNames = namesDataset.filter((name) => {
+        if (selectedGender.male && selectedGender.female) {
+            return true;
+        }
+        if (selectedGender.male && name.vector[5] === 2) {  // Male
+            return true;
+        }
+        if (selectedGender.female && name.vector[5] === 1) {  // Female
+            return true;
+        }
+        return false;
+    });
 
-// Handle Dislike button
-dislikeBtn.addEventListener('click', () => {
-    currentIndex++;
-    showName();
-});
+    currentIndex = 0;  // Reset index after filtering
+    loadNextName();  // Load the first name from the filtered dataset
+}
 
-// Initialize the app
-document.addEventListener('DOMContentLoaded', showName);
+// Function to update the target vector based on the liked name's vector
+function updateTargetVector(likedVector) {
+    for (let i = 0; i < targetVector.length; i++) {
+        targetVector[i] = Math.round((targetVector[i] + likedVector[i]) / 2);
+    }
+    targetVectorField.textContent = `Target: [${targetVector}]`;
+}
+
+// Initial load
+loadNextName();
